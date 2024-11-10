@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 
 // Import your illustrations
-import Illustration1 from '../assets/Info.png'; 
+import Illustration1 from '../assets/undraw_breaking_barriers_vnf3.svg'; 
+import Illustration2 from '../assets/undraw_fitness_stats_sht6.svg'
+import Illustration3 from '../assets/undraw_healthy_lifestyle_re_ifwg.svg'
+import Illustration4 from '../assets/undraw_indoor_bike_pwa4.svg'
+import Illustration5 from '../assets/undraw_refreshing_beverage_td3r.svg'
+import Illustration6 from '../assets/undraw_loading_re_5axr.svg'
+import Illustration7 from '../assets/undraw_workout_gcgu.svg'
+
 import MentalHealthAndMood from '../components/quiz/MentalHealthAndMood'; 
 import FitnessLevel from '../components/quiz/FitnessLevel';   
 import GoalSetting from '../components/quiz/GoalSetting';   
@@ -105,27 +112,27 @@ const AssessmentPage = () => {
     },
     {
       component: <FitnessLevel handleChange={handleChange}/>, 
-      illustration: Illustration1,
+      illustration: Illustration4,
     },
     {
       component: <SleepPatterns handleChange={handleChange}/>, 
-      illustration: Illustration1,
+      illustration: Illustration6,
     },
     {
       component: <Hydration handleChange={handleChange}/>, 
-      illustration: Illustration1,
+      illustration: Illustration5,
     },
     {
       component: <MentalHealthAndMood handleChange={handleChange}/>, 
-      illustration: Illustration1,
+      illustration: Illustration7,
     },
     {
       component: <LifeStyleHabits handleChange={handleChange}/>, 
-      illustration: Illustration1,
+      illustration: Illustration3,
     },
     {
       component: <LongTermWellnessGoals handleChange={handleChange}/>, 
-      illustration: Illustration1,
+      illustration: Illustration2,
     },
   ];
 

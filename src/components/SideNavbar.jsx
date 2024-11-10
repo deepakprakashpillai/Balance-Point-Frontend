@@ -59,12 +59,13 @@ const SideNavbar = ({ isCollapsed, toggleSidebar }) => {
   
     return (
         <div
-        className="flex flex-col bg-black pt-[80px] px-2 fixed top-0 left-0 h-full"
-        style={{ width: isCollapsed ? '100px' : '250px' }}
+        className="flex flex-col pt-[80px] px-2 fixed top-0 left-0 h-full"
+        style={{ width: isCollapsed ? '100px' : '250px',backgroundColor: '#001529' }}
       >
         <Button
           type="primary"
           onClick={toggleSidebar}
+          style={{ backgroundColor: '#001529' }}
           className="mb-2 z-10 bg-black"
         >
           {isCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Illustration from '../assets/Info.png'; // Replace with your image path
+import loginIllustration from '../assets/undraw_login_re_4vu2.svg';
+import signupIllustration from '../assets/undraw_undraw_undraw_undraw_sign_up_ln1s_-1-_s4bc_-1-_ee41_-1-_kf4d.svg';
 import Login from '../components/login/Login'; // Default import
 import { Register } from '../components/login/Register'; // Named import
 
@@ -11,14 +12,19 @@ export const LoginPage = ({setIsLoggedIn}) => {
   };
 
   return (
-    <div className="login-page flex justify-center items-center min-h-screen w-full bg-gray-100">
+    <div className="login-page flex justify-center items-center min-h-[89vh] w-full bg-gray-100">
       {/* Left Side - Illustration */}
       <div className="left-side flex justify-center items-center w-[40%] max-w-[500px] p-6">
-        <img
-          src={Illustration}
+        
+        {activeTab === 'login' ? <img
+          src={loginIllustration}
           alt="Illustration"
           className="w-80 h-80 object-contain transition-all duration-300"
-        />
+        /> : <img
+        src={signupIllustration}
+        alt="Illustration"
+        className="w-80 h-80 object-contain transition-all duration-300"
+      />}
       </div>
 
       {/* Right Side - Login/Register Components */}
