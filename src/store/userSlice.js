@@ -42,7 +42,8 @@ const initialState = {
         "user": null
         },
     loading : false,
-    error : null
+    error : null,
+    isLoggedIn : false,
 }
 const userSlice = createSlice({
     name : 'user',
@@ -62,9 +63,12 @@ const userSlice = createSlice({
         },
         setError(state,action){
             state.error = action.payload
-        }
+        },
+        setIsLoggedIn(state,action){
+            state.isLoggedIn = action.payload
+        },
     },
 })
 
-export const {setUserData,clearUserData,setLoading,setError,setAssessmentData} = userSlice.actions;
+export const {setUserData,clearUserData,setLoading,setError,setAssessmentData,setIsLoggedIn} = userSlice.actions;
 export default userSlice.reducer;

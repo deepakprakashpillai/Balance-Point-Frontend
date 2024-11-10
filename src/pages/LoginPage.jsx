@@ -3,7 +3,7 @@ import Illustration from '../assets/Info.png'; // Replace with your image path
 import Login from '../components/login/Login'; // Default import
 import { Register } from '../components/login/Register'; // Named import
 
-export const LoginPage = () => {
+export const LoginPage = ({setIsLoggedIn}) => {
   const [activeTab, setActiveTab] = useState('login');
 
   const handleTabChange = (tab) => {
@@ -46,7 +46,7 @@ export const LoginPage = () => {
         </div>
 
         {/* Conditional Rendering of Components */}
-        {activeTab === 'login' ? <Login /> : <Register />}
+        {activeTab === 'login' ? <Login setIsLoggedIn={setIsLoggedIn}/> : <Register/>}
       </div>
     </div>
   );

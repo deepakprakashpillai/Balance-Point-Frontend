@@ -1,4 +1,4 @@
-import { setLoading, setError, setUserData, setAssessmentData } from "./userSlice";
+import { setLoading, setError, setUserData, setAssessmentData,setIsLoggedIn } from "./userSlice";
 import axios from "axios";
 
 export const fetchUserData = () => async (dispatch) => {
@@ -35,5 +35,6 @@ export const fetchUserData = () => async (dispatch) => {
         dispatch(setError(error.message));
     } finally {
         dispatch(setLoading(false));
+        dispatch(setIsLoggedIn(true))
     }
 };

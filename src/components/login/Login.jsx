@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setIsLoggedIn } from '../../store/userSlice';
 
 const Login = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,6 +26,7 @@ const Login = () => {
         const { access,refresh } = response.data;
         localStorage.setItem('access',access)
         localStorage.setItem('refresh',refresh)
+        dispatch(setIsLoggedIn(true))
         navigate('/home')
 
     } catch(error){

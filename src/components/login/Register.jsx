@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router';
 export const Register = () => {
+  const navigate = useNavigate()
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -23,10 +24,11 @@ export const Register = () => {
       const handleSubmit = async(e) => {
         e.preventDefault();
         console.log(formData);
-
+        navigate('/login')
         try{
             const response = await axios.post("http://127.0.0.1:8000/user/register/",formData);
         console.log(response.data);
+        rou
         }
         catch(error){
             console.error("Error during register",error)
