@@ -26,7 +26,7 @@ export const DietPage = () => {
   const [foodServings, setFoodServings] = useState([])
   const  [mealExperience,setMealExperience] = useState(null)
   
-  const [adding, setAdding] = useState(true);
+  const [adding, setAdding] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   const handleOk = () => {
@@ -216,7 +216,7 @@ export const DietPage = () => {
 <div className="bg-white p-6 shadow-lg rounded-lg col-span-1 flex flex-col items-center"> 
   <h3 className="text-blue-600 text-lg font-semibold mb-4">Today's Diet Overview</h3> 
   
-  <Box position="relative" display="inline-flex" className="mb-4">
+  <Box position="relative" display="inline-flex" className="mb-2">
     <CircularProgress
       variant="determinate"
       value={(todayDietData.totalCalories / 2000) * 100} // progress based on current vs target
@@ -254,7 +254,7 @@ export const DietPage = () => {
   </Typography>
 
   <div className="flex flex-col items-center mt-4">
-  <p className="text-4xl">
+  <p className="text-4xl mb-0">
       {todayDietData.mealExperience === 'Happy' ? '😊' :
        todayDietData.mealExperience === 'Calm' ? '😌' : 
        todayDietData.mealExperience === 'Tired' ? '😴 ' :
@@ -337,7 +337,7 @@ export const DietPage = () => {
           {/* Favorite Food Items */}
           
 
-          <div className="bg-white p-6 shadow-lg rounded-lg col-span-1">
+          <div className="bg-white p-6 pt-3 shadow-lg rounded-lg col-span-1">
   <h3 className="text-blue-600 text-lg font-semibold">Favorite Food Items</h3>
 
   {/* Ensure favoriteFoods is an array before sorting */}
@@ -384,7 +384,7 @@ export const DietPage = () => {
         
 
           {/* Weekly Calorie Summary */}
-          <div className="bg-white p-6 shadow-lg rounded-lg col-span-1">
+          <div className="bg-white p-6 pt-3 shadow-lg rounded-lg col-span-1">
             <h3 className="text-blue-600 text-lg font-semibold">Weekly Calorie Summary</h3>
             <CalorieGraph dailyCalorieSummary={dailyCalorieSummary}/>
           </div>

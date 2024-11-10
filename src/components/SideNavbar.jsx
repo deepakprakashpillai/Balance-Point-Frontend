@@ -88,7 +88,7 @@ const SideNavbar = ({ isCollapsed, toggleSidebar }) => {
           ))}
           <div className="border-t border-gray-600 mt-24 pl-2">
             <Menu.Item
-              key="profile"
+              key="6"
               icon={<FaUserCircle className="text-2xl" />}
               className="text-white p-3 text-left"
               onClick={() => handleMenuClick("profile", "/profile")}
@@ -96,7 +96,7 @@ const SideNavbar = ({ isCollapsed, toggleSidebar }) => {
               Profile
             </Menu.Item>
             <Menu.Item
-              key="logout"
+              key="7"
               icon={<FaSignOutAlt className="text-3xl" />}
               className="text-white p-3 text-left"
               onClick={handleLogout}

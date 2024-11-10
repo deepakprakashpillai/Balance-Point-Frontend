@@ -19,14 +19,14 @@ export const PieChartDietComponent = ({ totalMealExperienceData }) => {
           highlightScope: { fade: 'global', highlight: 'item' },
           faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
           innerRadius: 20,
-          outerRadius: 70,
+          outerRadius: 90,
           paddingAngle: 3,
           cornerRadius: 5,
           cx: 100,
           cy: 110
         }
       ]}
-      width={330}
+      width={290}
       height={230}
     />
   );

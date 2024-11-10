@@ -24,7 +24,7 @@ export const PieChartComponent = ({ totalWorkoutIntensityCount }) => {
           cy: 70,
         },
       ]}
-      width={340}
+      width={300}
       height={150}
     />
   );

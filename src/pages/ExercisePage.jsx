@@ -58,7 +58,7 @@ export const ExercisePage = () => {
   const [dailyMood,setDailyMood] = useState([])
 
   
-  useEffect(() => {
+  useEffect(() =>{
     if (!userData.id) {
       dispatch(fetchUserData());
     }
@@ -75,6 +75,8 @@ export const ExercisePage = () => {
     if (userData.id) {
       getWorkoutData();
     }
+  },[])
+  useEffect(() => {
 
     const getWorkoutCounts = () => {
       const today = new Date();
@@ -227,9 +229,9 @@ calculateDailyMood();
 
       {/* Previous Workouts */}
       <div className="col-span-4 row-span-2 bg-gradient-to-br from-red-50 to-red-100 text-red-900 font-semibold rounded-xl shadow-lg p-4 hover:shadow-xl transition-shadow duration-300">
-  <h3 className="text-xl font-semibold mb-6">Previous Workouts</h3>  
+  <h3 className="text-xl font-semibold mb-8">Previous Workouts</h3>  
 
-  <div className="flex gap-4 overflow-x-auto scroll-smooth">  
+  <div className="flex gap-5 overflow-x-auto scroll-smooth">  
     {previousWorkouts.slice().reverse().map((workout) => (  
       <div
       key={workout.id}
@@ -237,7 +239,7 @@ calculateDailyMood();
     >
       <div className="flex justify-between items-center mb-3">
         <div className="flex flex-col items-center pl-3">
-          <span className="text-4xl mb-1 ">
+          <span className="text-4xl mb-0 ">
             {workout.feelings === 'happy' && <span role="img" aria-label="happy">😊</span>}
             {workout.feelings === 'calm' && <span role="img" aria-label="calm">😌</span>}
             {workout.feelings === 'tired' && <span role="img" aria-label="tired">😴</span>}
@@ -250,7 +252,7 @@ calculateDailyMood();
           </p>
         </div>
     
-        <div className="text-right text-xs pr-3 pt-5">
+        <div className="text-right text-xs pr-3 mb-0">
           <p className="font-medium">{new Date(workout.date).toLocaleDateString()}</p>
           {workout.workout_exercises[0].exercise.type !== 'weightlifting' && (
             <p className="text-gray-500 text-lg">{workout.total_duration} mins</p>
@@ -259,29 +261,29 @@ calculateDailyMood();
       </div>
     
       <div className="space-y-1">
-        <p className="text-sm font-medium text-gray-700 mb-2">Exercises:</p>
+        <p className="text-sm font-medium text-gray-700 mb-4">Exercises:</p>
         {workout.workout_exercises.map((exercise) => (
           <div
             key={exercise.id}
             className="bg-red-50 text-red-800 p-2 rounded-lg shadow-sm flex flex-col gap-1 transition-colors duration-300 hover:bg-red-100"
           >
-            <p className="font-semibold text-sm uppercase">{exercise.exercise.name}</p>
+            <p className="font-semibold text-sm uppercase mb-1">{exercise.exercise.name}</p>
     
-            <div className="flex justify-between text-xs mt-2">
+            <div className="flex justify-between text-xs ">
               {/* Cardio Type: Show intensity, distance, and duration */}
               {exercise.exercise.type === 'cardio' && (
                 <>
                   <div className="text-center">
-                    <p className="text-lg font-md uppercase">{exercise.intensity}</p>
-                    <p className="text-gray-500 text-xs font-light">Intensity</p>
+                    <p className="text-lg font-md uppercase mb-1">{exercise.intensity}</p>
+                    <p className="text-gray-500 text-xs font-light mb-1">Intensity</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-semibold">{exercise.distance || '-'}</p>
-                    <p className="text-gray-500 text-xs font-light">km</p>
+                    <p className="text-lg font-semibold mb-1">{exercise.distance || '-'}</p>
+                    <p className="text-gray-500 text-xs font-light mb-1">km</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-semibold">{exercise.duration || '-'}</p>
-                    <p className="text-gray-500 text-xs font-light">mins</p>
+                    <p className="text-lg font-semibold mb-1">{exercise.duration || '-'}</p>
+                    <p className="text-gray-500 text-xs font-light mb-1">mins</p>
                   </div>
                 </>
               )}
@@ -290,16 +292,16 @@ calculateDailyMood();
               {exercise.exercise.type === 'weightlifting' && (
                 <>
                   <div className="text-center">
-                    <p className="text-lg font-semibold">{exercise.sets || '-'}</p>
-                    <p className="text-gray-500 text-xs font-light">Sets</p>
+                    <p className="text-lg font-semibold mb-1">{exercise.sets || '-'}</p>
+                    <p className="text-gray-500 text-xs font-light mb-1">Sets</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-semibold">{exercise.reps || '-'}</p>
-                    <p className="text-gray-500 text-xs font-light">Reps</p>
+                    <p className="text-lg font-semibold mb-1">{exercise.reps || '-'}</p>
+                    <p className="text-gray-500 text-xs font-light mb-1">Reps</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-semibold">{exercise.weight || '-'}</p>
-                    <p className="text-gray-500 text-xs font-light">kg</p>
+                    <p className="text-lg font-semibold mb-1">{exercise.weight || '-'}</p>
+                    <p className="text-gray-500 text-xs font-light mb-1">kg</p>
                   </div>
                 </>
               )}
@@ -308,12 +310,12 @@ calculateDailyMood();
               {(exercise.exercise.type === 'sports' || exercise.exercise.type === 'other') && (
                 <>
                   <div className="text-center">
-                    <p className="text-lg font-semibold uppercase">{exercise.intensity}</p>
-                    <p className="text-gray-500 text-xs font-light">Intensity</p>
+                    <p className="text-lg font-semibold uppercase mb-1">{exercise.intensity}</p>
+                    <p className="text-gray-500 text-xs font-light mb-1">Intensity</p>
                   </div>
                   <div className="text-center">
-                    <p className="text-lg font-semibold">{exercise.duration || '-'}</p>
-                    <p className="text-gray-500 text-xs font-light">mins</p>
+                    <p className="text-lg font-semibold mb-1">{exercise.duration || '-'}</p>
+                    <p className="text-gray-500 text-xs font-light mb-1">mins</p>
                   </div>
                 </>
               )}
@@ -336,10 +338,10 @@ calculateDailyMood();
 
       
       {/* Most Repeated Exercises */}
-      <div className="col-span-2 row-span-2 bg-gray-50 text-gray-800 font-semibold rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300 space-y-3"> 
+      <div className="col-span-2 row-span-2 bg-gray-50 text-gray-800 font-semibold rounded-lg shadow-lg p-4 hover:shadow-xl transition-shadow duration-300 space-y-4"> 
   <h3 className="text-lg mb-4 text-center">Most Repeated Exercises</h3> 
 
-  <div className="bg-yellow-100 flex items-center justify-center text-center gap-4 p-4 pr-12 rounded-lg shadow hover:shadow-md transition-shadow">
+  <div className="bg-yellow-100 flex items-center justify-center text-center gap-4 p-4 py-2 pr-12 rounded-lg shadow hover:shadow-md transition-shadow">
     <FaDumbbell className="text-3xl text-yellow-600 mr-4" />
     <div className="text-left">
       <p className="text-base font-semibold">Weightlifting</p>
@@ -349,7 +351,7 @@ calculateDailyMood();
     </div>
   </div>
 
-  <div className="bg-blue-100 flex items-center justify-center text-center gap-4 p-4 pr-12 rounded-lg shadow hover:shadow-md transition-shadow">
+  <div className="bg-blue-100 flex items-center justify-center text-center gap-4 p-4 py-2 pr-12 rounded-lg shadow hover:shadow-md transition-shadow">
     <FaRunning className="text-3xl text-blue-600 mr-4" />
     <div className="text-left">
       <p className="text-base font-semibold">Cardio</p>
@@ -359,7 +361,7 @@ calculateDailyMood();
     </div>
   </div>
 
-  <div className="bg-green-100 flex items-center justify-center text-center gap-4 p-4 pr-12 rounded-lg shadow hover:shadow-md transition-shadow">
+  <div className="bg-green-100 flex items-center justify-center text-center gap-4 p-4 py-2 pr-12 rounded-lg shadow hover:shadow-md transition-shadow">
     <FaBasketballBall className="text-3xl text-green-600 mr-4" />
     <div className="text-left">
       <p className="text-base font-semibold">Sports</p>
@@ -369,7 +371,7 @@ calculateDailyMood();
     </div>
   </div>
 
-  <div className="bg-purple-100 flex items-center justify-center text-center gap-4 p-4 pr-12 rounded-lg shadow hover:shadow-md transition-shadow">
+  <div className="bg-purple-100 flex items-center justify-center text-center gap-4 p-4 py-2 pr-12 rounded-lg shadow hover:shadow-md transition-shadow">
     <FaHiking className="text-3xl text-purple-600 mr-4" />
     <div className="text-left">
       <p className="text-base font-semibold">Other</p>
@@ -389,7 +391,7 @@ calculateDailyMood();
 
       
       {/* Total Exercises This Week and Month */}
-      <div className="col-span-2 bg-gradient-to-br from-green-600 to-green-400 text-green-900 font-semibold rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-center">
+      <div className="col-span-2 bg-gradient-to-br from-green-600 to-green-400 text-green-900 font-semibold rounded-lg shadow-lg p-6 py-1 hover:shadow-2xl transition-shadow duration-300 flex flex-col items-center justify-center">
       <h3 className="text-2xl font-light text-green-100">You Worked Out</h3>
 
       <div className="grid grid-cols-3 items-center gap-6 text-center">
@@ -399,17 +401,17 @@ calculateDailyMood();
         </div>
 
         {/* Weekly and Monthly Exercise Stats */}
-        <div className="col-span-2 flex justify-center gap-12">
+        <div className="col-span-2 flex justify-center gap-10">
           {/* Weekly Exercises */}
           <div>
-            <p className="text-5xl font-extrabold text-green-100 leading-tight">{weeklyExercises}</p>
-            <p className="text-base font-light text-green-200">This Week</p>
+            <p className="text-5xl font-extrabold text-green-100 leading-tight mb-2">{weeklyExercises}</p>
+            <p className="text-base font-light text-green-200 mb-1">This Week</p>
           </div>
 
           {/* Monthly Exercises */}
           <div>
-            <p className="text-5xl font-extrabold text-green-100 leading-tight">{monthlyExercises}</p>
-            <p className="text-base font-light text-green-200">This Month</p>
+            <p className="text-5xl font-extrabold text-green-100 leading-tight mb-2">{monthlyExercises}</p>
+            <p className="text-base font-light text-green-200 mb-1">This Month</p>
           </div>
         </div>
       </div>
@@ -424,8 +426,8 @@ calculateDailyMood();
 
       
       {/* Mood Over Time */}
-      <div className="col-span-2 row-span-2 bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 font-semibold rounded-lg shadow-lg p-4 pl-2 hover:shadow-xl transition-shadow duration-300">
-      <h3 className="text-lg font-bold text-center mb-4">Mood Over Time</h3>
+      <div className="col-span-2 row-span-2 bg-gradient-to-br from-blue-100 to-blue-300 text-gray-900 font-semibold rounded-lg shadow-lg p-4 pl-0 hover:shadow-xl transition-shadow duration-300">
+      <h3 className="text-lg font-bold text-center mb-16">Mood Over Time</h3>
 
       {/* Calling the MoodGraph component */}
       <MoodGraph dailyMood={dailyMood}/>
@@ -516,7 +518,7 @@ calculateDailyMood();
       
       {/* Personal Records */}
       <div className="col-span-2 bg-gradient-to-br from-orange-100 to-orange-300 text-orange-900 font-semibold rounded-lg shadow-xl p-6 hover:shadow-2xl transition-shadow duration-300">
-  <h3 className="text-xl font-bold text-center mb-6">Personal Records</h3>
+  <h3 className="text-xl font-bold text-center mb-2">Personal Records</h3>
 
   <Carousel autoplay dots={false} className="custom-carousel">
     {/* Weightlifting Card */}
@@ -525,7 +527,7 @@ calculateDailyMood();
   <div className="flex flex-col space-y-1 text-center">
     <h4 className="text-lg font-medium text-gray-700">Weightlifting </h4> {/* Heading */}
     <div className="flex flex-col items-center">
-      <p className="text-5xl font-bold text-orange-600">1000</p> {/* Main number */}
+      <p className="text-5xl font-bold text-orange-600 mb-8">1000</p> {/* Main number */}
       <p className="text-sm font-medium text-gray-600">kg volume</p> {/* Subtext */}
     </div>
   </div>
@@ -542,7 +544,7 @@ calculateDailyMood();
   <div className="flex flex-col space-y-1 text-center">
     <h4 className="text-lg font-medium text-gray-700">Cardio</h4> {/* Heading */}
     <div className="flex flex-col items-center">
-      <p className="text-5xl font-bold text-orange-600">20</p> {/* Main number */}
+      <p className="text-5xl font-bold text-orange-600 mb-8">20</p> {/* Main number */}
       <p className="text-sm font-medium text-gray-600">km in 5 minutes</p> {/* Subtext */}
     </div>
   </div>
@@ -554,7 +556,7 @@ calculateDailyMood();
   <div className="flex flex-col space-y-1 text-center">
     <h4 className="text-lg font-medium text-gray-700">Sports</h4> {/* Heading */}
     <div className="flex flex-col items-center">
-      <p className="text-5xl font-bold text-orange-600">1</p> {/* Main number */}
+      <p className="text-5xl font-bold text-orange-600 mb-8">1</p> {/* Main number */}
       <p className="text-sm font-medium text-gray-600">hour</p> {/* Subtext */}
     </div>
   </div>
@@ -573,7 +575,7 @@ calculateDailyMood();
       
       {/* Weekly Consistency */}
       <div className="col-span-2 bg-gradient-to-br from-yellow-100 to-orange-200 text-yellow-900 font-semibold rounded-lg shadow-lg p-6 hover:shadow-2xl transition-shadow duration-300">
-  <h3 className="text-xl font-bold text-center mb-6">Weekly Consistency</h3>
+  <h3 className="text-xl font-bold text-center mb-12">Weekly Consistency</h3>
   <WeeklyConsistencyCalendar activeDays={activeDays} />
 </div>
 

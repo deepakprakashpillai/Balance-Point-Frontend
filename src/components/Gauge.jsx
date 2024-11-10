@@ -82,7 +82,7 @@ const Gauge = ({ bmi, min = 10, max = 35, size = 170 }) => {
       <div
         style={{
           position: 'absolute',
-          top: '60%', // Reduced top value for closer positioning
+          top: '120%', // Reduced top value for closer positioning
           left: '50%',
           transform: 'translate(-50%, -50%)',
           color: color,
@@ -91,16 +91,16 @@ const Gauge = ({ bmi, min = 10, max = 35, size = 170 }) => {
         <p
           className={`text-4xl mt-16 font-extrabold ${
             bmi < 18.5
-              ? 'text-blue-500' // Underweight (Blue)
+              ? 'text-blue-500 mb-0' // Underweight (Blue)
               : bmi <= 24.9
-              ? 'text-green-500' // Normal (Green)
-              : 'text-red-500' // Overweight (Red)
+              ? 'text-green-500 mb-0' // Normal (Green)
+              : 'text-red-500 mb-0' // Overweight (Red)
           }`}
         >
           {bmi.toFixed(1)}
         </p>
-        <p className="text-sm font-light text-gray-600">BMI</p>
-        <p className="text-sm font-light text-gray-600">{bmi < 18.5
+        <p className="text-sm font-light text-gray-600 mb-0">BMI</p>
+        <p className="text-sm font-extrabold mt-0 text-gray-600">{bmi < 18.5
               ? 'Under-weight' // Underweight (Blue)
               : bmi <= 24.9
               ? 'Normal' // Normal (Green)

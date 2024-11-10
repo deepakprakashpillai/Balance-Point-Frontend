@@ -105,9 +105,9 @@ export const ProfilePage = () => {
 </div>
 
 <div className="bg-gradient-to-r from-red-500 to-pink-500 col-span-2 p-6 rounded-lg shadow-md text-white flex items-center justify-start space-x-4 group">
-  <span className="text-7xl ml-12 group-hover:scale-110 transition-transform duration-200">🔥</span>
-  <div className="text-center ml-4"> 
-    <p className="text-6xl font-extrabold">15</p> 
+  <span className="text-7xl ml-8 group-hover:scale-110 transition-transform duration-200">🔥</span>
+  <div className="text-center ml-2"> 
+    <p className="text-6xl font-extrabold mb-2 mt-8">15</p> 
     <p className="text-xl font-light ">days streak</p> 
   </div> 
 </div>
@@ -116,20 +116,20 @@ export const ProfilePage = () => {
       {/* Mood and Sleep Quality */}
       <div className="col-span-2 grid grid-cols-2 gap-4">
         {/* Most Logged Mood */}
-   <div className="bg-indigo-400 p-6 rounded-lg shadow-md text-white text-center group hover:cursor-pointer">
+   <div className="bg-indigo-400 p-6 rounded-lg shadow-md text-white text-center group hover:cursor-pointer pt-12">
   <span className="text-7xl group-hover:scale-110 transform transition-all duration-200">{moodData[mostLoggedMood]}</span>
   <p className="text-xs font-light mt-3">Most Logged Mood</p>
-  <p className="text-2xl font-bold">{mostLoggedMood.charAt(0).toUpperCase() + mostLoggedMood.slice(1)}</p> 
+  <p className="text-2xl font-bold mb-0">{mostLoggedMood.charAt(0).toUpperCase() + mostLoggedMood.slice(1)}</p> 
 </div>
 
 
         {/* Average Sleep Quality */}
-        <div className="bg-purple-400 p-6 rounded-lg shadow-md text-white text-center group hover:cursor-pointer">
+        <div className="bg-purple-400 p-6 rounded-lg shadow-md text-white text-center group hover:cursor-pointer pt-12">
       <span className="text-7xl group-hover:scale-110 transform transition-all duration-200">
         {sleepEmojis[sleepQuality]} {/* Render the emoji based on sleep quality */}
       </span>
       <p className="text-xs font-light mt-3">Average Sleep Quality</p>
-      <p className="text-2xl font-bold">{sleepQuality} / 5</p> {/* Display the sleep quality value */}
+      <p className="text-2xl font-bold mb-0">{sleepQuality} / 5</p> {/* Display the sleep quality value */}
     </div>
     </div>
 
@@ -186,27 +186,27 @@ export const ProfilePage = () => {
 
       {/* Summary Stats Sections */}
   <div className="bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-200 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out text-center">
-  <p className="text-4xl font-bold text-orange-600">{`40`}<span className="text-lg font-medium text-gray-500"> hrs</span></p>
+  <p className="text-4xl mb-4 font-bold text-orange-600">{`40`}<span className="text-lg font-medium text-gray-500"> hrs</span></p>
   <h3 className="text-sm font-light text-gray-500">Workout Hours</h3>
 </div>
 
 <div className="bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-200 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out text-center">
-  <p className="text-4xl font-bold text-orange-600">{`120`}<span className="text-lg font-medium text-gray-500"> meals</span></p>
+  <p className="text-4xl mb-4 font-bold text-orange-600">{`120`}</p>
   <h3 className="text-sm font-light text-gray-500">Meals Logged</h3>
 </div>
 
 <div className="bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-200 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out text-center">
-  <p className="text-4xl font-bold text-orange-600">{`150`}<span className="text-lg font-medium text-gray-500"> hrs</span></p>
+  <p className="text-4xl mb-4 font-bold text-orange-600">{`150`}<span className="text-lg font-medium text-gray-500"> hrs</span></p>
   <h3 className="text-sm font-light text-gray-500">Sleep Logged</h3>
 </div>
 
 <div className="bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-200 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out text-center">
-  <p className="text-4xl font-bold text-orange-600">{`50`}<span className="text-lg font-medium text-gray-500"> L</span></p>
+  <p className="text-4xl mb-4 font-bold text-orange-600">{`50`}<span className="text-lg font-medium text-gray-500"> L</span></p>
   <h3 className="text-sm font-light text-gray-500">Water Drank</h3>
 </div>
 
 <div className="bg-gradient-to-r from-yellow-200 via-orange-200 to-yellow-200 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out text-center">
-  <p className="text-4xl font-bold text-orange-600">{`25`}<span className="text-lg font-medium text-gray-500"> days</span></p>
+  <p className="text-4xl  mb-4 font-bold text-orange-600">{`25`}<span className="text-lg font-medium text-gray-500"> days</span></p>
   <h3 className="text-sm font-light text-gray-500">Diary Entries</h3>
 </div>
 
