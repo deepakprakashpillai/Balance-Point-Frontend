@@ -3,11 +3,14 @@ import axios from 'axios';
 import WaterIntakeProgress from '../components/WaterIntakeProgress';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
-
+import {useDispatch, useSelector } from 'react-redux';
+import { fetchUserData } from '../store/userThunks';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 const HydrationPage = () => {
+    const dispatch = useDispatch()
+  const userData = useSelector((state) => state.user.userData)
   const [hydrationLog, setHydrationLog] = useState([]);
   const [amount, setAmount] = useState('');
   const [dailyTotals, setDailyTotals] = useState([]);
@@ -16,6 +19,31 @@ const HydrationPage = () => {
   const userId = 2;
   const dailyGoal = 4;
 
+  const fetchHydrationLog = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/hydration/${userData.id}`);
+      setHydrationLog(response.data);
+      console.log(response.data)
+      updateLastDrinkTime(response.data);
+    } catch (error) {
+      console.error('Error fetching hydration logs:', error);
+    }
+  };
+
+  const fetchDailyTotals = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/hydration/total_water_intake_by_user/${userData.id}/`);
+      const totals = response.data.daily_totals || [];
+      setDailyTotals(totals);
+    } catch (error) {
+      console.error('Error fetching daily water totals:', error);
+    }
+  };
+  useEffect(()=>{
+    if(!userData.id){
+        dispatch(fetchUserData())
+      }
+  },[])
   useEffect(() => {
     fetchHydrationLog();
     fetchDailyTotals();
@@ -25,37 +53,18 @@ const HydrationPage = () => {
     }, 3600000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [userData]);
 
-  const fetchHydrationLog = async () => {
-    try {
-      const response = await axios.get('http://127.0.0.1:8000/hydration/');
-      setHydrationLog(response.data);
-      updateLastDrinkTime(response.data);
-    } catch (error) {
-      console.error('Error fetching hydration logs:', error);
-    }
-  };
 
-  const fetchDailyTotals = async () => {
-    try {
-      const response = await axios.get(`http://127.0.0.1:8000/hydration/total_water_intake_by_user/${userId}/`);
-      const totals = response.data.daily_totals || [];
-      setDailyTotals(totals);
-    } catch (error) {
-      console.error('Error fetching daily water totals:', error);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
-      user: userId,
       amount: parseFloat(amount),
     };
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/hydration/', payload, {
+      const response = await axios.post(`http://127.0.0.1:8000/hydration/${userData.id}/`, payload, {
         headers: {
           'Content-Type': 'application/json',
         },

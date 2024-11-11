@@ -47,6 +47,7 @@ const MoodGraph = ({ dailyMood }) => {
           {/* X and Y Axis */}
           <XAxis dataKey="date" tick={{ fontSize: 12, fill: "#555" }} />
           <YAxis 
+            dataKey='value'
             tick={{ fontSize: 12, fill: "#555" }}
             domain={['dataMin', 'dataMax']} // Ensure Y-Axis adjusts to the data range
           />

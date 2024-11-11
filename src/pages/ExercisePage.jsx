@@ -62,7 +62,8 @@ export const ExercisePage = () => {
     if (!userData.id) {
       dispatch(fetchUserData());
     }
-    
+  },[])
+  useEffect(() => {
     const getWorkoutData = async () => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/workout-session/user/${userData.id}`);
@@ -75,9 +76,9 @@ export const ExercisePage = () => {
     if (userData.id) {
       getWorkoutData();
     }
-  },[])
+  },[adding,userData])
   useEffect(() => {
-
+    
     const getWorkoutCounts = () => {
       const today = new Date();
       const thisWeekStart = new Date(today);
@@ -195,7 +196,7 @@ calculateMostRepeatedWorkouts();
 getWorkoutCounts();
 
 calculateDailyMood();
-  }, [userData,adding]);
+  }, [previousWorkouts]);
 
   const activeDays = ['Mon', 'Wed', 'Thu', 'Sat'];
   return (

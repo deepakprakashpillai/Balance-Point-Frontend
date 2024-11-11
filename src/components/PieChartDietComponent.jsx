@@ -19,7 +19,7 @@ export const PieChartDietComponent = ({ totalMealExperienceData }) => {
           highlightScope: { fade: 'global', highlight: 'item' },
           faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
           innerRadius: 20,
-          outerRadius: 90,
+          outerRadius: 70,
           paddingAngle: 3,
           cornerRadius: 5,
           cx: 100,

@@ -4,11 +4,15 @@ import dayjs from "dayjs";
 import { Carousel } from "antd";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import {useDispatch, useSelector } from 'react-redux';
+import { fetchUserData } from '../store/userThunks';
 
 // Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const SleepPage = () => {
+  const dispatch = useDispatch()
+  const userData = useSelector((state) => state.user.userData)
   const [sleepLogs, setSleepLogs] = useState([]);
   const [sleepStart, setSleepStart] = useState("");
   const [sleepEnd, setSleepEnd] = useState("");
@@ -16,14 +20,9 @@ const SleepPage = () => {
   const [sleepAnalysis, setSleepAnalysis] = useState(null);
   const userId = 2;
 
-  useEffect(() => {
-    fetchSleepLogs();
-    fetchSleepAnalysis();
-  }, []);
-
   const fetchSleepLogs = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/sleep/");
+      const response = await axios.get(`http://127.0.0.1:8000/sleep/${userData.id}`);
       setSleepLogs(response.data);
       
     } catch (error) {
@@ -33,13 +32,35 @@ const SleepPage = () => {
 
   const fetchSleepAnalysis = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/sleep/sleep_analysis/${userId}/`);
+      const response = await axios.get(`http://127.0.0.1:8000/sleep/sleep_analysis/${userData.id}`);
       setSleepAnalysis(response.data);
       console.log(sleepAnalysis)
     } catch (error) {
-      console.error("Error fetching sleep analysis:", error);
+      const fake_response = {
+        "user_id": userData.id,
+        "daily_sleep_summary": [],
+        "average_quality": 0,
+        "total_duration": 0
+    }
+    setSleepAnalysis(fake_response)
     }
   };
+
+ 
+
+  useEffect(()=>{
+    if(!userData.id){
+        dispatch(fetchUserData())
+      }
+  },[])
+
+  useEffect(() => {
+    if(userData.id){
+      fetchSleepLogs();
+      fetchSleepAnalysis();
+    }
+  }, [userData]);
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,14 +76,14 @@ const SleepPage = () => {
     const formattedEndTime = endTime.format("YYYY-MM-DDTHH:mm:ss");
 
     const payload = {
-      user: userId,
       sleep_start: formattedStartTime,
       sleep_end: formattedEndTime,
       quality: sleepQuality,
     };
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/sleep/", payload);
+      console.log(payload)
+      const response = await axios.post(`http://127.0.0.1:8000/sleep/${userData.id}/`, payload);
       setSleepLogs([response.data, ...sleepLogs]);
       setSleepStart("");
       setSleepEnd("");
@@ -181,7 +202,7 @@ const SleepPage = () => {
                 <div>
                   <h3 className="text-lg font-semibold text-black">Total Duration</h3>
                   <p className="text-2xl font-bold text-black">
-                    {sleepAnalysis.total_duration/3600} hours
+                    {(sleepAnalysis.total_duration/3600).toFixed(2)} hours
                   </p>
                 </div>
               </Carousel>

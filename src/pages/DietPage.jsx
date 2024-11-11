@@ -51,12 +51,13 @@ export const DietPage = () => {
     console.log(adding)
   };
   
-  
-  useEffect(() => {
+  useEffect(()=>{
     if(!userData.id){
       dispatch(fetchUserData())
     }
+  },[])
 
+  useEffect(()=>{
     const getDietData = async() => {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/meals/user/${userData.id}`);
@@ -69,7 +70,9 @@ export const DietPage = () => {
     if (userData.id){
       getDietData();
     }
+  },[userData,adding])
 
+  useEffect(() => {
     const processDietData = (dietData) => {
       const dailyCalorieSummary = [];
       const mealExperienceData = [];
@@ -160,7 +163,7 @@ export const DietPage = () => {
       setFavoriteFoods(favoriteFoods);
       setTotalMealExperienceData(totalMealExperienceData);
     }
-  }, [dietData,adding]);
+  }, [dietData]);
   
   useEffect(() => {
     const getTodaysDietData = () => {
@@ -290,7 +293,7 @@ export const DietPage = () => {
   <h3 className="text-lg font-semibold mb-4">Latest Entries</h3>
 
   <div className="space-y-6">
-    {dietData.map((meal, mealIndex) => (
+    {dietData.reverse().map((meal, mealIndex) => (
       <div key={meal.id} className="bg-white text-blue-800 p-4 rounded-lg shadow-sm">
         {/* Meal Header with Date and Experience */}
         <div className="flex justify-between items-start mb-3">

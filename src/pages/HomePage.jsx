@@ -76,6 +76,7 @@ export const HomePage = () => {
         {/* Nearby Restaurants Section */}
         <div className="bg-white rounded-lg shadow-lg p-4 text-center col-span-2  hover:scale-105">
           <h3 className="text-xl font-semibold text-gray-800 mb-2">Upcoming Events</h3>
+          <p className = "text-gray-600">Here are some interesting events happening in your area!</p>
           <EventSection />
         </div>
       </div>

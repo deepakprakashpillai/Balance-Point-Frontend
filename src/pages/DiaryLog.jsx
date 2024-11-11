@@ -4,6 +4,8 @@ import { Slider } from 'antd';
 import { Line } from 'react-chartjs-2';
 import 'antd/dist/reset.css';
 import 'chart.js/auto';
+import {useDispatch, useSelector } from 'react-redux';
+import { fetchUserData } from '../store/userThunks';
 
 const moodChoices = [
     "productive", "energetic", "happy", "motivated", 
@@ -12,7 +14,8 @@ const moodChoices = [
 ];
 
 const DiaryLog = () => {
-    const userId = 2;
+    const dispatch = useDispatch()
+  const userData = useSelector((state) => state.user.userData)
     const [selectedMoods, setSelectedMoods] = useState([]);
     const [emotionalRating, setEmotionalRating] = useState(5);
     const [logs, setLogs] = useState([]);
@@ -21,14 +24,22 @@ const DiaryLog = () => {
     const [isTodayLogged, setIsTodayLogged] = useState(false);
     const [todayLog, setTodayLog] = useState(null);
 
+
     useEffect(() => {
+        if(!userData.id){
+            dispatch(fetchUserData())
+          }
+    },[])
+    useEffect(() => {
+        if(userData.id){
         fetchLogs();
-    }, []);
+        }
+    }, [userData]);
 
     const fetchLogs = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/diary/user_log/${userId}/`);
+            const response = await axios.get(`http://127.0.0.1:8000/diary/user_log/${userData.id}/`);
             const sortedLogs = response.data.sort((a, b) => new Date(b.date) - new Date(a.date));
             setLogs(sortedLogs);
 
@@ -66,7 +77,7 @@ const DiaryLog = () => {
         try {
             const moodDescriptorsString = selectedMoods.join(",");
             await axios.post("http://127.0.0.1:8000/diary/", {
-                user: userId,
+                user: userData.id,
                 mood_descriptors: moodDescriptorsString,
                 emotional_rating: emotionalRating
             });
