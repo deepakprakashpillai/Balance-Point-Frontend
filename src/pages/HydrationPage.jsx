@@ -14,7 +14,7 @@ const HydrationPage = () => {
   const [lastDrinkTime, setLastDrinkTime] = useState(null);
   const [reminderMessage, setReminderMessage] = useState('');
   const userId = 2;
-  const dailyGoal = 7;
+  const dailyGoal = 4;
 
   useEffect(() => {
     fetchHydrationLog();

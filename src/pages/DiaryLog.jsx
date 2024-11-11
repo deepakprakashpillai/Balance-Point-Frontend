@@ -86,7 +86,6 @@ const DiaryLog = () => {
         return "😞";
     };
 
-    // Prepare data for the chart
     const chartData = {
         labels: logs.map(log => new Date(log.date).toLocaleDateString()),
         datasets: [
@@ -127,49 +126,47 @@ const DiaryLog = () => {
         const moodCount = {};
     
         logs.forEach(log => {
-            const moods = log.mood_descriptors.split(","); // Split multiple moods if they exist
+            const moods = log.mood_descriptors.split(",");
             moods.forEach(mood => {
                 moodCount[mood] = (moodCount[mood] || 0) + 1;
             });
         });
     
-        // Find the mood with the maximum count
         const mostLoggedMood = Object.keys(moodCount).reduce((a, b) => moodCount[a] > moodCount[b] ? a : b);
-    
         console.log("Most logged mood:", mostLoggedMood);
     };
 
     return (
-        <div className="min-h-screen w-full bg-white py-8 sm:px-6 lg:px-8">
-            <div className="mx-auto bg-white rounded-lg p-8">
-                <div className="grid grid-cols-1 gap-6">
+        <div className="min-h-screen w-full bg-white py-8 sm:px-6 lg:px-8 font-sans text-black">
+            <div className="mx-auto bg-white rounded-lg p-6 ">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Today's Mood Section */}
-                    <div className="bg-gradient-to-br from-blue-100 to-blue-300 p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out text-center">
-                        <h2 className="text-3xl font-bold text-white mb-8">
+                    <div className="bg-gradient-to-br from-blue-100 to-blue-300 p-6 rounded-lg shadow-lg text-center">
+                        <h2 className="text-2xl font-bold mb-6">
                             {isTodayLogged ? "Today's Mood" : "Log Your Mood"}
                         </h2>
                         {!isTodayLogged ? (
                             <form onSubmit={handleSubmit}>
-                                <div className="mb-6">
-                                    <label className="block text-lg font-medium text-white mb-4">Select Your Moods</label>
-                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                <div className="mb-4">
+                                    <label className="block text-md font-medium mb-2">Select Your Moods</label>
+                                    <div className="grid grid-cols-2 gap-3">
                                         {moodChoices.map((mood) => (
-                                            <label key={mood} className="flex items-center space-x-2 cursor-pointer">
+                                            <label key={mood} className="flex items-center space-x-1 cursor-pointer">
                                                 <input
                                                     type="checkbox"
                                                     value={mood}
                                                     checked={selectedMoods.includes(mood)}
                                                     onChange={() => handleMoodChange(mood)}
-                                                    className="form-checkbox h-5 w-5 text-blue-500 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 transition-all duration-200 ease-in-out"
+                                                    className="form-checkbox h-4 w-4 text-gray-500 border-gray-300 rounded focus:ring-2 focus:ring-gray-500"
                                                 />
-                                                <span className="text-lg text-white capitalize">{mood}</span>
+                                                <span className="text-sm capitalize">{mood}</span>
                                             </label>
                                         ))}
                                     </div>
                                 </div>
 
-                                <div className="mb-6">
-                                    <label className="block text-lg font-medium text-white mb-4">Emotional Rating</label>
+                                <div className="mb-4">
+                                    <label className="block text-md font-medium mb-2">Emotional Rating</label>
                                     <Slider
                                         min={1}
                                         max={10}
@@ -179,14 +176,7 @@ const DiaryLog = () => {
                                         step={1}
                                         marks={{
                                             1: "1",
-                                            2: "2",
-                                            3: "3",
-                                            4: "4",
                                             5: "5",
-                                            6: "6",
-                                            7: "7",
-                                            8: "8",
-                                            9: "9",
                                             10: "10",
                                         }}
                                         className="w-full"
@@ -195,29 +185,29 @@ const DiaryLog = () => {
 
                                 <button
                                     type="submit"
-                                    className="w-full bg-blue-600 text-white text-lg font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200"
+                                    className="w-full bg-gray-600 text-white font-semibold py-2 px-4 rounded shadow hover:bg-gray-700"
                                 >
                                     Submit Mood Log
                                 </button>
                             </form>
                         ) : (
                             <div>
-                                <p className="text-xl font-medium text-white mb-2">
+                                <p className="text-lg font-medium mb-2">
                                     {todayLog.mood_descriptors.split(",").join(", ")}
                                 </p>
-                                <p className="text-6xl font-bold text-white mt-6">
+                                <p className="text-5xl font-bold mt-4">
                                     {todayLog.emotional_rating}
                                 </p>
-                                <p className="text-6xl mt-4">{latestMoodEmoji}</p>
+                                <p className="text-5xl mt-4">{latestMoodEmoji}</p>
                             </div>
                         )}
                     </div>
 
                     {/* Emotional Rating Over Time Chart Section */}
-                    <div className="bg-gradient-to-br from-green-100 to-green-300 p-8 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out">
-                        <h3 className="text-2xl font-semibold text-white mb-6">Emotional Rating Over Time</h3>
-                        <div className="bg-white shadow-lg rounded-lg hover:shadow-2xl p-4">
-                            <div className="h-64">
+                    <div className="bg-gradient-to-br from-pink-100 to-pink-300 p-6 rounded-lg shadow-lg">
+                        <h3 className="text-xl font-semibold mb-4">Emotional Rating Over Time</h3>
+                        <div className="bg-white shadow rounded p-4">
+                            <div className="h-56">
                                 <Line data={chartData} options={chartOptions} />
                             </div>
                         </div>

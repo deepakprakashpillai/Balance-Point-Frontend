@@ -37,11 +37,11 @@ function App() {
             }}
           >
             <Routes>
+              
               <Route path='/home' element={<HomePage />} />
               <Route path="/diet" element={<DietPage />} />
               <Route path="/exercise" element={<ExercisePage />} />
               <Route path="/login" element={<LoginPage/>} />
-              <Route path="/register" element={<RegistrationPage />} />
               <Route path="/assessment" element={<AssessmentPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/diary" element={<DiaryLog />} />
