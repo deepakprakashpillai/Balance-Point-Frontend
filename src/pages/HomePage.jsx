@@ -66,7 +66,7 @@ export const HomePage = () => {
 
         {/* Events Section */}
         <div className="bg-white rounded-lg shadow-lg p-4 text-center col-span-2 hover:scale-105">
-          <h3 className="text-xl font-semibold text-gray-800 mb-2">Cheat Day Spots</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-2">Ever Thought about a Cheat Day!!</h3>
           <p className="text-gray-600">
             Explore food courts near you for a refreshing treat!
           </p>
