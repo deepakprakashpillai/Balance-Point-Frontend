@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Button, Modal } from 'antd';
+import {useDispatch, useSelector } from 'react-redux';
+import { NewExercise } from './NewExercise';
+import axios from 'axios';
 
 export const NewWorkoutForm = ({workoutExercises,setWorkoutExercises,setWorkoutExperience,workoutExperience}) => {
   const [selectedExercise, setSelectedExercise] = useState('');
   const [intensity, setIntensity] = useState('');
   const [additionalData, setAdditionalData] = useState({});
+  const [exerciseName, setExerciseName] = useState('');
+  const [exerciseType, setExerciseType] = useState(null);
+  const dispatch = useDispatch()
+  const userData = useSelector((state) => state.user.userData)
+  const [adding, setAdding] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
 
 
-  const allExercises = [
-    { id: 1, name: 'Jumping', type: 'cardio' },
-    { id: 2, name: 'Running', type: 'cardio' },
-    { id: 3, name: 'Deadlift', type: 'weightlifting' },
-    { id: 4, name: 'Bench Press', type: 'weightlifting' },
-    { id: 5, name: 'Cricket', type: 'sports' },
-    { id: 6, name: 'Football', type: 'sports' },
-    { id: 7, name: 'Zumba', type: 'other' }
-  ];
+  const [allExercises,setAllExercises ]= useState([])
 
   const workoutExperienceOptions = [
     { value: 'happy', emoji: '😊', label: 'Happy' },
@@ -25,7 +27,7 @@ export const NewWorkoutForm = ({workoutExercises,setWorkoutExercises,setWorkoutE
     { value: 'stressed', emoji: '😣', label: 'Stressed' },
   ];
 
-  const handleAddExercise = () => {
+  const handleAddNewWorkout = () => {
     if (selectedExercise && intensity && additionalData) {
       const exercise = {
         exercise: parseInt(selectedExercise),
@@ -43,6 +45,43 @@ export const NewWorkoutForm = ({workoutExercises,setWorkoutExercises,setWorkoutE
     setWorkoutExercises(workoutExercises.filter((_, i) => i !== index));
   };
 
+  const handleOk = () => {
+    setConfirmLoading(true);
+    const postData = async()=>{
+      const exerciseData = {
+        added_by: userData.id,
+        name:exerciseName,
+        type:exerciseType,
+      };
+      console.log(exerciseData)
+      const response = await axios.post("http://127.0.0.1:8000/exercise/",exerciseData)
+      console.log(response.data)
+      setAllExercises([...allExercises,response.data])
+    }
+    postData();
+    setExerciseType(null)
+    setExerciseName('')
+    setAdding(false);
+    setConfirmLoading(false);
+  };
+  const handleCancel = () => {
+    setAdding(false);
+    console.log(adding)
+  };
+
+  useEffect(()=>{
+    const fetchData = async() =>{
+      try{
+        const response = await axios.get(`http://127.0.0.1:8000/exercises/${userData.id}`);
+        setAllExercises(response.data)
+      }
+      catch(error){
+        console.error("Fetching exercises failed:", error);
+      }
+    }
+    fetchData();
+    
+  },[adding])
 
   return (
     <form className="grid grid-cols-5 gap-4 w-[950px]">
@@ -71,20 +110,43 @@ export const NewWorkoutForm = ({workoutExercises,setWorkoutExercises,setWorkoutE
 
         {/* Exercise Selection and Intensity */}
         <div className="mt-4">
-          <label htmlFor="exercise" className="block text-gray-700 mb-1">Select Exercise</label>
-          <select
-            id="exercise"
-            value={selectedExercise}
-            onChange={(e) => setSelectedExercise(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg mb-2"
-          >
-            <option value="">-- Select an Exercise --</option>
-            {allExercises.map((exercise) => (
-              <option key={exercise.id} value={exercise.id}>
-                {exercise.name} - {exercise.type}
-              </option>
-            ))}
-          </select>
+  <label htmlFor="exercise" className="block text-gray-700 mb-1">Select Exercise</label>
+  <div className="flex items-center space-x-2">
+    <select
+      id="exercise"
+      value={selectedExercise}
+      onChange={(e) => setSelectedExercise(e.target.value)}
+      className="w-3/4 p-2 border border-gray-300 rounded-lg mb-2"
+    >
+      <option value="">-- Select an Exercise --</option>
+      {allExercises.map((exercise) => (
+        <option key={exercise.id} value={exercise.id}>
+          {exercise.name} - {exercise.type}
+        </option>
+      ))}
+    </select>
+    <button
+      type="button"
+      onClick={()=>{setAdding(true)}}
+      className="p-2 bg-green-500 text-white rounded-lg w-1/4 mb-2"
+    >
+      New
+    </button>
+    <Modal
+        title="Add new Exercise"
+        open={adding}
+        onOk={handleOk} 
+        onCancel={()=>{
+          setAdding(false)
+          console.log(adding)
+        }}
+        confirmLoading={confirmLoading}
+        okText="Add"
+      >
+        <NewExercise exerciseName = {exerciseName} setExerciseName={setExerciseName} exerciseType={exerciseType} setExerciseType={setExerciseType} />
+      </Modal>
+  </div>
+
 
           <label className="block text-gray-700 mb-1">Intensity</label>
           <select
@@ -162,7 +224,7 @@ export const NewWorkoutForm = ({workoutExercises,setWorkoutExercises,setWorkoutE
 
         </div>
 
-        <button type="button" onClick={handleAddExercise} className="mt-4 p-2 bg-blue-500 text-white rounded-lg">
+        <button type="button" onClick={handleAddNewWorkout} className="mt-4 p-2 bg-blue-500 text-white rounded-lg">
           Add Exercise
         </button>
 

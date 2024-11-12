@@ -26,7 +26,7 @@ export const PieChartDietComponent = ({ totalMealExperienceData }) => {
           cy: 110
         }
       ]}
-      width={290}
+      width={310}
       height={230}
     />
   );
