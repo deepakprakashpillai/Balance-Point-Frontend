@@ -13,6 +13,8 @@ import SleepPage from "./pages/SleepPage";
 import SideNavbar from "./components/SideNavbar";
 import TopNavbar from "./components/TopNavbar";
 import { useSelector } from 'react-redux';
+import {Navigate} from 'react-router-dom'
+
 function App() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const isLoggedIn = useSelector((state)=> state.user.isLoggedIn)
@@ -47,6 +49,7 @@ function App() {
               <Route path="/diary" element={<DiaryLog />} />
               <Route path="/hydration" element={<HydrationPage />} />
               <Route path="/sleep" element={<SleepPage />} />
+              <Route path="*" element={<Navigate to="/login"/>} />
             </Routes>
           </div>
         </div>
