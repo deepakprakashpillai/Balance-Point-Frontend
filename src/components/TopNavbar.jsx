@@ -30,7 +30,7 @@ const TopNavbar = () => {
       {/* Site Name */}
       <div>
       <Link to="/home" className="text-xl font-semibold hover:bg-grey-100">
-        My Fitness Tracker
+        BalancePoint
       </Link>
       </div>
 
