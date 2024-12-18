@@ -45,6 +45,14 @@ export const ProfilePage = () => {
   const average_calorie_intake = 2000;
   const calories_needed_for_goal = 1800;
 
+  if (!userData.is_assessment_completed) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <p className="text-xl text-gray-600">Please complete your assessment to view your profile.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-6 gap-4 p-4 bg-gray-100 min-h-screen"> 
 

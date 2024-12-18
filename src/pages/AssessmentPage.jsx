@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import {useDispatch, useSelector } from 'react-redux';
+import { fetchUserData } from '../store/userThunks';
+import { useEffect } from 'react';
 // Import your illustrations
 import Illustration1 from '../assets/undraw_breaking_barriers_vnf3.svg'; 
 import Illustration2 from '../assets/undraw_fitness_stats_sht6.svg'
@@ -20,6 +22,8 @@ import Success from '../components/quiz/Success';
 import axios from 'axios' 
  
 const AssessmentPage = () => { 
+  const dispatch = useDispatch()
+  const userData = useSelector((state) => state.user.userData)
   const [currentIndex, setCurrentIndex] = useState(0); 
   const [answers, setAnswers] = useState({ 
     height: null, 
@@ -45,6 +49,11 @@ const AssessmentPage = () => {
     self_motivation: null,
     biggest_challenge: '',
   });
+
+  useEffect(()=>{
+    (!userData.id) && (dispatch(fetchUserData()))
+    console.log(userData)
+  },[])
 
   const [isSubmitted, setIsSubmitted] = useState(false); // To track submission status
 
@@ -90,16 +99,22 @@ const AssessmentPage = () => {
       screen_time: answers.screen_time ? parseFloat(answers.screen_time) : null,
       self_motivation: answers.self_motivation ? parseInt(answers.self_motivation) : null,
       mood_frequency: moodFrequencyMapping[answers.mood_frequency] || null, // Mapping mood frequency to a number
-      user: 3,
+      user: userData.id,
     };
 
     console.log("Formatted Answers:", formattedAnswers);
-    // Add any additional submission logic or API call here
 
     try {
       const response = await axios.post("http://127.0.0.1:8000/user/assessment/", formattedAnswers);
       console.log(response.data);
-      setIsSubmitted(true); // Mark as submitted on successful response
+      setIsSubmitted(true);
+      const token = localStorage.getItem('access');
+      const response2 = await axios.post("http://127.0.0.1:8000/user/toggle-assessment/",{},{
+        headers : {
+            Authorization : `Bearer ${token}`
+        }
+    });
+      console.log(response2.data);
     } catch (error) {
       console.error("Submission Error:", error);
     }

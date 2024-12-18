@@ -11,7 +11,7 @@ import NearbyRestaurantsMap from "../components/NearbyRestaurantsMap";
 export const HomePage = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.user.userData);
-  const isAssessmentDone = false; // Replace with actual logic if available
+  
 
   useEffect(() => {
     dispatch(fetchUserData());
@@ -20,7 +20,7 @@ export const HomePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-200 to-blue-50 p-6">
       {/* Assessment Reminder Bar */}
-      {!isAssessmentDone && (
+      {!userData.is_assessment_completed && (
         <Alert
           message={
             <span>

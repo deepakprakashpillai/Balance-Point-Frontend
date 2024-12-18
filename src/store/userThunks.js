@@ -17,6 +17,7 @@ export const fetchUserData = () => async (dispatch) => {
                 Authorization: `Bearer ${token}`,
             },
         });
+        dispatch(setUserData(user_response.data));
         console.log(user_response.data)
         const assessment_response = await axios.get(`http://127.0.0.1:8000/user/assessment/${user_response.data.id}`,{
             headers : {
@@ -24,7 +25,7 @@ export const fetchUserData = () => async (dispatch) => {
             }
         })
         dispatch(setAssessmentData(assessment_response.data))
-        dispatch(setUserData(user_response.data)); 
+         
 
     } catch (error) {
         if (error.response) {

@@ -41,7 +41,7 @@ const items = [
 
 const SideNavbar = ({ isCollapsed, toggleSidebar }) => {
     const dispatch = useDispatch()
-    const [selectedKey, setSelectedKey] = useState("1");
+    const [selectedKey, setSelectedKey] = useState('-1');
   
     const navigate = useNavigate();
   
